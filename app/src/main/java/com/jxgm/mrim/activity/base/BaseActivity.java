@@ -1,7 +1,9 @@
-package com.jxgm.mrim.activity;
+package com.jxgm.mrim.activity.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.jxgm.mrim.utiles.LOG;
 
 /**
  * @项目名 ：GooglePlay
@@ -14,6 +16,8 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //设置是否是debug模式
+        LOG.isDebug = true;
         initView();
         initData();
         initEvent();
