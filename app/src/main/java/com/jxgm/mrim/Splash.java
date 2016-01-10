@@ -1,10 +1,13 @@
 package com.jxgm.mrim;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.jxgm.mrim.activity.LoginActivity;
 import com.jxgm.mrim.activity.base.BaseActivity;
+import com.jxgm.mrim.app.APP;
 
 public class Splash extends BaseActivity {
 
@@ -28,6 +31,14 @@ public class Splash extends BaseActivity {
 
     @Override
     public void initEvent() {
-
+        APP.getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Splash.this, LoginActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.activity_ent, R.anim.activity_out);
+                finish();
+            }
+        }, 2000);
     }
 }
