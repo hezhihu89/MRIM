@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 
 /**
- * @项目名 ：GooglePlay
+ * @项目名 ：MRIM
  * @包名 ：com.jxgm.mrim.app
  * @User ： hezhi by：贺志虎
  * @创建时间 ：2016 年 01 月 11 日   00时 02分.

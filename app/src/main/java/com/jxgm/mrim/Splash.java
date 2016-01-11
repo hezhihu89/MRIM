@@ -16,12 +16,11 @@ public class Splash extends BaseActivity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_splash);
     }
 
     @Override
     public void initView() {
-
+        setContentView(R.layout.activity_splash);
     }
 
     @Override
@@ -40,5 +39,10 @@ public class Splash extends BaseActivity {
                 finish();
             }
         }, 2000);
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 }

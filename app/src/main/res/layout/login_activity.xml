@@ -3,19 +3,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/action_bar" />
 
     <RelativeLayout
+        android:id="@+id/sing_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/action_bar_base">
+        android:layout_height="150dp"
+        android:background="#d6cbcb">
 
         <TextView
+            android:id="@+id/sign_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="登陆"
-            android:textSize="100sp" />
+            android:text="Sign up"
+            android:textSize="50sp"
+            android:typeface="serif" />
+
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/sing_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sing_title"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:id="@+id/login_name"
+            style="@style/editText_defual"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="50dp"
+            android:hint="@string/login_name_hint" />
+
+        <EditText
+            android:id="@+id/login_pass"
+            style="@style/editText_defual"
+            android:layout_below="@+id/login_name"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="32dp"
+            android:hint="@string/login_pass_hint"
+            android:textColorHint="#a6a5a6" />
+
+        <Button
+            android:id="@+id/sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/login_pass"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/sign_button_select"
+            android:text="@string/login_button"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sign_up"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:clickable="true"
+            android:padding="10dp"
+            android:text="@string/login_sign_in"
+            android:textColor="@color/sign_up_color_select" />
+
+    </RelativeLayout>
+
+
 </RelativeLayout>

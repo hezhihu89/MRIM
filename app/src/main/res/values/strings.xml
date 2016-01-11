@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MRIM</string>
+    <string name="login_name_hint">phone/email/accounts</string>
+    <string name="login_pass_hint">password</string>
+    <string name="login_button">SIGN UP</string>
+    <string name="login_sign_in">Sign up</string>
 </resources>

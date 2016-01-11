@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">哦该咯</string>
+    <string name="login_name_hint">手机/邮箱/帐号</string>
+    <string name="login_pass_hint">密码</string>
+    <string name="login_button">登录</string>
+    <string name="login_sign_in">注册</string>
 </resources>
