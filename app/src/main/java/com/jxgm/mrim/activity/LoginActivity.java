@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void initEvent() {
         mSignUp.setOnClickListener(this);
-
+        mSignIn.setOnClickListener(this);
     }
 
     @Override

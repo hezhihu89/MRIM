@@ -4,4 +4,6 @@
     <string name="login_pass_hint">密码</string>
     <string name="login_button">登录</string>
     <string name="login_sign_in">注册</string>
+    <string name="login_sign_reqpass">确认密码</string>
+    <string name="Invitation_code">邀请码</string>
 </resources>
