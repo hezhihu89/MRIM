@@ -95,16 +95,15 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             Toasts.makeToast(SignInActivity.this, "两次输入密码不同").show();
             return;
         }
-        if (signInPass.length() > 16 || signInPass.length() < 5) {
-            Toasts.makeToast(SignInActivity.this, "密码必须大于5位，小于16位").show();
+        if (signInPass.length() > 16 || signInPass.length() < 6) {
+            Toasts.makeToast(SignInActivity.this, "密码必须大于6位，小于16位").show();
             return;
         }
         if (TextUtils.isEmpty(singInCode)) {
             Toasts.makeToast(SignInActivity.this, "请输入邀请码").show();
             return;
         }
-        if (!singInCode.equals(1010)) {
-            LOG.d("TAG", "邀请码不对");
+        if (!singInCode.equals("1010")) {
             Toasts.makeToast(SignInActivity.this, "邀请码错误").show();
             return;
         }
@@ -123,12 +122,13 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String msg = "0";
+                String msg = "code xxx";
                 try {
                     //使用MD5 加密
                     String MD5Pass = MD5Utile.encodeByMD5(signInPass);
                     // 调用sdk注册方法
                     EMChatManager.getInstance().createAccountOnServer(signInName, MD5Pass);
+                    msg = "注册成功";
                 } catch (final EaseMobException e) {
                     //注册失败
                     int errorCode = e.getErrorCode();
@@ -168,7 +168,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                         finish();
+                        finish();
                     }
                 }).show();
 
