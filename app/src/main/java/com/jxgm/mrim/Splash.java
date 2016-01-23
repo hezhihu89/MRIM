@@ -9,6 +9,8 @@ import com.jxgm.mrim.activity.LoginActivity;
 import com.jxgm.mrim.activity.base.BaseActivity;
 import com.jxgm.mrim.app.APP;
 
+import butterknife.ButterKnife;
+
 public class Splash extends BaseActivity {
 
     @Override
@@ -22,6 +24,7 @@ public class Splash extends BaseActivity {
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+        ButterKnife.inject(this);
     }
 
     @Override

@@ -22,33 +22,39 @@
         <EditText
             android:id="@+id/sign_in_name"
             style="@style/editText_defual"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
             android:hint="@string/login_name_hint" />
 
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/sign_in_pass"
             style="@style/editText_defual"
             android:layout_below="@+id/sign_in_name"
-            android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:hint="@string/login_pass_hint" />
 
+
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/sign_in_reqpass"
             style="@style/editText_defual"
             android:layout_below="@+id/sign_in_pass"
-            android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:hint="@string/login_sign_reqpass" />
-
 
         <EditText
             android:id="@+id/in_code"
             style="@style/editText_defual"
             android:layout_width="150dp"
             android:layout_below="@+id/sign_in_reqpass"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
             android:hint="@string/Invitation_code" />
+        <TextView
+            android:textColor="#fc020a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/in_code" />
 
         <Button
             android:id="@+id/sign_in_but"
@@ -57,6 +63,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/in_code"
             android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/ok_button_select" />
 
         <Button
@@ -66,6 +73,7 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/in_code"
             android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/no_button_select" />
 
     </RelativeLayout>

@@ -18,6 +18,7 @@ import com.jxgm.mrim.app.APP;
 import com.jxgm.mrim.utiles.LOG;
 import com.jxgm.mrim.utiles.MD5Utile;
 import com.jxgm.mrim.utiles.Metricutile;
+import com.jxgm.mrim.utiles.Toasts;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -82,7 +83,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onBackPressed() {
         if (!isBack) {
-            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            Toasts.makeToast(this, "再按一次退出").show();
             isBack = true;
             APP.getHandler().postDelayed(new Runnable() {
                 @Override
@@ -112,10 +113,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
+    /**
+     * 登录
+     */
     private void signUP() {
 
     }
 
+    /**
+     * 注册
+     */
     private void signIn() {
         Intent intent = new Intent(LoginActivity.this, SignInActivity.class);
         startActivity(intent);
@@ -137,7 +144,32 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mAnimation.setRepeatCount(0);
         mAnimation.setRepeatMode(Animation.RESTART);
         mAnimation.setFillAfter(true);
+        mAnimation.setAnimationListener(animationListener);
         view.startAnimation(mAnimation);
     }
 
+    Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            setEnabled(false);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            setEnabled(true);
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    private void setEnabled(boolean enable) {
+        mSignUp.setEnabled(enable);
+        mSignIn.setEnabled(enable);
+        mLoginPass.setEnabled(enable);
+        mLoginName.setEnabled(enable);
+    }
 }
