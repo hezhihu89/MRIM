@@ -1,8 +1,8 @@
 package com.jxgm.mrim.activity;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -10,14 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.easemob.EMCallBack;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMGroupManager;
 import com.jxgm.mrim.R;
 import com.jxgm.mrim.activity.base.BaseActivity;
 import com.jxgm.mrim.app.APP;
-import com.jxgm.mrim.utiles.LOG;
 import com.jxgm.mrim.utiles.MD5Utile;
 import com.jxgm.mrim.utiles.Metricutile;
+import com.jxgm.mrim.utiles.TextHelp;
+import com.jxgm.mrim.utiles.ThreadPoolutile;
 import com.jxgm.mrim.utiles.Toasts;
 
 import butterknife.ButterKnife;
@@ -103,11 +106,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         switch (viewId) {
             case R.id.sign_up:
                 //登录
-                signUP();
+                signIn();
                 break;
             case R.id.sign_in:
                 //注册
-                signIn();
+                signUp();
                 break;
         }
 
@@ -116,16 +119,97 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     /**
      * 登录
      */
-    private void signUP() {
+    private void signIn() {
+        //登陆
+        final String singInName = mLoginName.getText().toString().trim();
+        final String singInpass = mLoginPass.getText().toString().trim();
+        if (!TextHelp.isUserName(singInName).equals(TextHelp.OK)) {
+            Toasts.makeToast(this, TextHelp.isUserName(singInName)).show();
+            return;
+        }
+        if (!TextHelp.isPassword(singInpass).equals(TextHelp.OK)) {
+            Toasts.makeToast(this, TextHelp.isPassword(singInpass)).show();
+            return;
+        }
+        //使用线程池登陆
+        ThreadPoolutile.task(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setEnabled(false);
+                    }
+                });
+                String sginInpassMD5 = MD5Utile.encodeByMD5(singInpass);
+                clickSignIn(singInName, sginInpassMD5);
+            }
+        });
+
+    }
+
+    private void clickSignIn(String singInName, String singInpass) {
+
+        EMChatManager.getInstance().login(singInName, singInpass, new EMCallBack() {//回调
+            @Override
+            public void onSuccess() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        EMGroupManager.getInstance().loadAllGroups();
+                        EMChatManager.getInstance().loadAllConversations();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toasts.makeToast(LoginActivity.this, "登陆聊天服务器成功！").show();
+                                Intent toHomeIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(toHomeIntent);
+                                overridePendingTransition(R.anim.activity_alpha_out, R.anim.activity_alpha_ent);
+                                finish();
+                                setEnabled(true);
+
+                            }
+                        });
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, final String message) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setEnabled(true);
+                        Toasts.makeToast(LoginActivity.this, message).show();
+                    }
+                });
+            }
+        });
 
     }
 
     /**
      * 注册
      */
-    private void signIn() {
-        Intent intent = new Intent(LoginActivity.this, SignInActivity.class);
-        startActivity(intent);
+    private void signUp() {
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data != null) {
+            if (null != data.getStringExtra("userName")) {
+                mLoginName.setText(data.getStringExtra("userName"));
+            }
+        }
+
     }
 
     /**
@@ -172,4 +256,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mLoginPass.setEnabled(enable);
         mLoginName.setEnabled(enable);
     }
+
 }

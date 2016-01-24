@@ -9,7 +9,7 @@ import android.util.DisplayMetrics;
  * @包名 ：com.jxgm.mrim.utiles
  * @User ： hezhihu89 by：贺志虎
  * @创建时间 ：2016 年 01 月 11 日   11时 48分.
- * @类的描述 : TODO：
+ * @类的描述 :  获取屏幕高度的类
  */
 public class Metricutile {
 

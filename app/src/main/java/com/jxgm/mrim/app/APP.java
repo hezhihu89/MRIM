@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.os.Handler;
 
 import com.easemob.chat.EMChat;
+import com.easemob.chat.EMChatManager;
+import com.easemob.util.EMLog;
 import com.jxgm.mrim.utiles.LOG;
 
 import java.util.Iterator;
@@ -38,7 +40,7 @@ public class APP extends Application {
         // 如果app启用了远程的service，此application:onCreate会被调用2次
         // 为了防止环信SDK被初始化2次，加此判断会保证SDK被初始化1次
         // 默认的app会在以包名为默认的process name下运行，如果查到的process name不是app的process name就立即返回
-        LOG.d("TAG", "++++++初始化设置APPkey++++");
+
         if (processAppName == null || !processAppName.equalsIgnoreCase("com.jxgm.mrim")) {
             LOG.d("TAG", "enter the service process!");
             //"com.easemob.chatuidemo"为demo的包名，换到自己项目中要改成自己包名
@@ -54,6 +56,9 @@ public class APP extends Application {
          /* 在做代码混淆的时候需要设置成false
          /*/
         EMChat.getInstance().setDebugMode(true);//在做打包混淆时，要关闭debug模式，避免消耗不必要的资源
+        EMChatManager.getInstance().getChatOptions().setUseRoster(true);
+        LOG.d("TAG", "++++++初始化设置APPkey++++");
+
     }
 
     public static Handler getHandler() {

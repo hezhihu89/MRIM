@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Sign up"
+            android:text="Sign In"
             android:textSize="50sp"
             android:typeface="serif" />
 
@@ -41,6 +41,7 @@
             android:layout_below="@+id/login_name"
             android:layout_marginTop="32dp"
             android:hint="@string/login_pass_hint"
+            android:inputType="textPassword"
             android:textColorHint="#a6a5a6" />
 
         <Button

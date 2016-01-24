@@ -2,7 +2,9 @@ package com.jxgm.mrim.activity.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.easemob.util.EMLog;
 import com.jxgm.mrim.utiles.LOG;
 import com.jxgm.mrim.utiles.MD5Utile;
 
@@ -14,13 +16,13 @@ import com.jxgm.mrim.utiles.MD5Utile;
  * @类的描述 : TODO：
  */
 public abstract class BaseActivity extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //设置是否是debug模式
-        LOG.isDebug = true;
-        LOG.d("TAG","+++++++base+++++++++");
 
+        //设置是否是debug模式
+        LOG.d("TAG", "++++++baseActivity++++");
         initView();
         initData();
         initEvent();

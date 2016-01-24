@@ -39,7 +39,7 @@ public class Splash extends BaseActivity {
             public void run() {
                 Intent intent = new Intent(Splash.this, LoginActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.activity_ent, R.anim.activity_out);
+                overridePendingTransition(R.anim.activity_trasiton_ent, R.anim.activity_trasition_out);
                 finish();
             }
         }, 2000);

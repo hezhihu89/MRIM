@@ -24,4 +24,8 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
+    <style name="windowAnimation" parent="android:Animation">
+        <item name="android:windowExitAnimation">@anim/window_trastion_out</item>
+    </style>
+
 </resources>

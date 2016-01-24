@@ -3,12 +3,12 @@ package com.jxgm.mrim.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
@@ -18,6 +18,7 @@ import com.jxgm.mrim.activity.base.BaseActivity;
 import com.jxgm.mrim.app.APP;
 import com.jxgm.mrim.utiles.LOG;
 import com.jxgm.mrim.utiles.MD5Utile;
+import com.jxgm.mrim.utiles.TextHelp;
 import com.jxgm.mrim.utiles.Toasts;
 
 import butterknife.ButterKnife;
@@ -30,7 +31,7 @@ import butterknife.InjectView;
  * @创建时间 ：2016 年 01 月 11 日   15时 09分.
  * @类的描述 : 註冊頁面
  */
-public class SignInActivity extends BaseActivity implements View.OnClickListener {
+public class SignUpActivity extends BaseActivity implements View.OnClickListener {
 
     @InjectView(R.id.sign_in_name)
     EditText mSignInName;
@@ -45,6 +46,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     @InjectView(R.id.sign_in_cancle)
     Button mSignInCancle;
     private AlertDialog.Builder dialog;
+    private String signInName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,34 +79,36 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 signIn();
                 break;
             case R.id.sign_in_cancle:
+                putResule(false);
                 finish();
                 break;
         }
     }
 
     private void signIn() {
-        String signInName = mSignInName.getText().toString().trim();
+        signInName = mSignInName.getText().toString().trim();
         String signInPass = mSignInPass.getText().toString().trim();
         String signInReqPass = mSignInReqpass.getText().toString().trim();
         String singInCode = mInCode.getText().toString().trim();
-        if (TextUtils.isEmpty(signInName) || TextUtils.isEmpty(signInPass)) {
-            Toasts.makeToast(SignInActivity.this, "帐号或者密码不能为Null").show();
+
+        if (!TextHelp.isUserName(signInName).equals(TextHelp.OK)) {
+            Toasts.makeToast(SignUpActivity.this, TextHelp.isUserName(signInName)).show();
+            return;
+        }
+        if (!TextHelp.isPassword(signInPass).equals(TextHelp.OK)) {
+            Toasts.makeToast(SignUpActivity.this, TextHelp.isPassword(signInPass)).show();
             return;
         }
         if (!signInPass.equals(signInReqPass)) {
-            Toasts.makeToast(SignInActivity.this, "两次输入密码不同").show();
-            return;
-        }
-        if (signInPass.length() > 16 || signInPass.length() < 6) {
-            Toasts.makeToast(SignInActivity.this, "密码必须大于6位，小于16位").show();
+            Toasts.makeToast(SignUpActivity.this, "两次输入密码不同").show();
             return;
         }
         if (TextUtils.isEmpty(singInCode)) {
-            Toasts.makeToast(SignInActivity.this, "请输入邀请码").show();
+            Toasts.makeToast(SignUpActivity.this, "请输入邀请码").show();
             return;
         }
         if (!singInCode.equals("1010")) {
-            Toasts.makeToast(SignInActivity.this, "邀请码错误").show();
+            Toasts.makeToast(SignUpActivity.this, "邀请码错误").show();
             return;
         }
         mSignInBut.setEnabled(false);
@@ -168,10 +172,23 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        putResule(true);
                         finish();
                     }
                 }).show();
 
+    }
+
+    private void putResule(boolean ok) {
+        Bundle bundle = new Bundle();
+        if (signInName == null || !ok) {
+            bundle.putString("userName", "");
+        } else {
+            bundle.putString("userName", signInName);//给 bundle 写入数据
+        }
+        Intent mIntent = new Intent();
+        mIntent.putExtras(bundle);
+        setResult(RESULT_OK, mIntent);
     }
 
 }

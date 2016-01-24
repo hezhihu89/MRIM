@@ -11,7 +11,7 @@ import android.util.Log;
  * @类的描述 : TODO：
  */
 public class LOG {
-    public static boolean isDebug = false;
+    public static boolean isDebug = true;
 
     /**
      * 打印log方法
